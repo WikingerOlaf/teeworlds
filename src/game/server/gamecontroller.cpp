@@ -300,6 +300,9 @@ bool IGameController::OnEntity(int Index, vec2 Pos)
 			Type = PICKUP_NINJA;
 	}
 
+	if(GameServer()->m_InstagibModifier.IsActivated())
+		return false;
+
 	if(Type != -1)
 	{
 		new CPickup(&GameServer()->m_World, Type, Pos);

@@ -13,6 +13,8 @@
 #include "eventhandler.h"
 #include "gameworld.h"
 
+#include <game/server/gamemodes/instagib_modifier.h>
+
 /*
 	Tick
 		Game Context (CGameContext::tick)
@@ -200,6 +202,8 @@ public:
 	virtual const char *NetVersion() const;
 	virtual const char *NetVersionHashUsed() const;
 	virtual const char *NetVersionHashReal() const;
+
+	CInstagibModifier m_InstagibModifier;
 };
 
 inline int64 CmaskAll() { return -1; }

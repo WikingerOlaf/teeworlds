@@ -80,6 +80,9 @@ bool CCharacter::Spawn(CPlayer *pPlayer, vec2 Pos)
 
 	GameServer()->m_pController->OnCharacterSpawn(this);
 
+	if(GameServer()->m_InstagibModifier.IsActivated())
+		GameServer()->m_InstagibModifier.OnCharacterSpawn(this);
+
 	return true;
 }
 

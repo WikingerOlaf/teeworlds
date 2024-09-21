@@ -118,5 +118,6 @@ MACRO_CONFIG_INT(DbgStress, dbg_stress, 0, 0, 0, CFGFLAG_CLIENT|CFGFLAG_SERVER, 
 MACRO_CONFIG_INT(DbgStressNetwork, dbg_stress_network, 0, 0, 0, CFGFLAG_CLIENT|CFGFLAG_SERVER, "Stress network")
 MACRO_CONFIG_STR(DbgStressServer, dbg_stress_server, 32, "localhost", CFGFLAG_CLIENT, "Server to stress")
 #endif
-
+MACRO_CONFIG_INT(InstaShield, insta_shield, 1, 0, 1, CFGFLAG_SAVE|CFGFLAG_SERVER, "Instagib: Enable shield")
+MACRO_CONFIG_INT(InstaLaserJump, insta_laser_jump, 1, 0, 1, CFGFLAG_SAVE|CFGFLAG_SERVER, "Instagib: Enable laser jump")
 #endif

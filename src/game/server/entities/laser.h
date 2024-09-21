@@ -26,6 +26,9 @@ private:
 	int m_Bounces;
 	int m_EvalTick;
 	int m_Owner;
+
+
+	friend class CInstagibModifier;
 };
 
 #endif

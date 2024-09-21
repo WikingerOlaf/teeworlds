@@ -44,6 +44,9 @@ void CLaser::DoBounce()
 		return;
 	}
 
+	if(GameServer()->m_InstagibModifier.IsActivated() && GameServer()->m_InstagibModifier.LaserDoBounce(this))
+		return;
+
 	vec2 To = m_Pos + m_Dir * m_Energy;
 
 	if(GameServer()->Collision()->IntersectLine(m_Pos, To, 0x0, &To))
