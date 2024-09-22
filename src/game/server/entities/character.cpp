@@ -199,6 +199,12 @@ void CCharacter::HandleNinja()
 
 void CCharacter::DoWeaponSwitch()
 {
+	if(GameServer()->m_InstagibModifier.IsActivated())
+	{
+		GameServer()->m_InstagibModifier.CharacterDoWeaponSwitch(this);
+		return;
+	}
+
 	// make sure we can switch
 	if(m_ReloadTimer != 0 || m_QueuedWeapon == -1 || m_aWeapons[WEAPON_NINJA].m_Got)
 		return;
@@ -383,6 +389,8 @@ void CCharacter::FireWeapon()
 
 		case WEAPON_LASER:
 		{
+			if(GameServer()->m_InstagibModifier.IsActivated())
+				GameServer()->m_InstagibModifier.OnCharacterFireLaser(this);
 			new CLaser(GameWorld(), m_Pos, Direction, GameServer()->Tuning()->m_LaserReach, m_pPlayer->GetCID());
 			GameServer()->CreateSound(m_Pos, SOUND_LASER_FIRE);
 		} break;
@@ -720,6 +728,8 @@ bool CCharacter::TakeDamage(vec2 Force, vec2 Source, int Dmg, int From, int Weap
 
 	if(From >= 0)
 	{
+		if(GameServer()->m_InstagibModifier.IsActivated())
+			return GameServer()->m_InstagibModifier.OnCharacterTakeDamage(this, Weapon, Force, From);
 		if(GameServer()->m_pController->IsFriendlyFire(m_pPlayer->GetCID(), From))
 			return false;
 	}
@@ -728,6 +738,8 @@ bool CCharacter::TakeDamage(vec2 Force, vec2 Source, int Dmg, int From, int Weap
 		int Team = TEAM_RED;
 		if(From == PLAYER_TEAM_BLUE)
 			Team = TEAM_BLUE;
+		if(GameServer()->m_InstagibModifier.IsActivated())
+			return GameServer()->m_InstagibModifier.OnCharacterTakeDamage(this, Weapon, Force, From);
 		if(GameServer()->m_pController->IsFriendlyTeamFire(m_pPlayer->GetTeam(), Team))
 			return false;
 	}
@@ -863,6 +875,9 @@ void CCharacter::Snap(int SnappingClient)
 		if(5 * Server()->TickSpeed() - ((Server()->Tick() - m_LastAction) % (5 * Server()->TickSpeed())) < 5)
 			pCharacter->m_Emote = EMOTE_BLINK;
 	}
+
+	if(GameServer()->m_InstagibModifier.IsActivated())
+		GameServer()->m_InstagibModifier.OnCharacterSnap(this, pCharacter);
 }
 
 void CCharacter::PostSnap()
